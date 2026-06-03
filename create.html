@@ -3,105 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create New Job - Sree Sastha Computers</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Sree Sastha Computers</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8fafc; margin: 0; padding: 0; }
+    .container { max-width: 1100px; margin: 40px auto; padding: 20px; }
+    h1 { color: #1e40af; font-size: 42px; text-align: center; margin-bottom: 10px; }
+    .subtitle { text-align: center; color: #475569; font-size: 18px; margin-bottom: 50px; }
+    .card { 
+      background: white; border-radius: 20px; padding: 50px 30px; 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; 
+      transition: all 0.3s; border: 3px solid #e2e8f0;
+    }
+    .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+    .blue-card { border-color: #3b82f6; }
+  </style>
 </head>
-<body class="bg-slate-50">
-  <div class="max-w-2xl mx-auto p-6">
-    <h1 class="text-4xl font-bold text-center mb-8">Create New Service Job</h1>
+<body>
+  <div class="container">
+    <h1>SREE SASTHA COMPUTERS</h1>
+    <p class="subtitle">Laptop & PC Repair Service • Thiruvananthapuram, Kerala</p>
     
-    <div class="bg-white rounded-3xl shadow-xl p-8 space-y-8">
-      <div><label>Job Date</label><input id="date" type="date" class="w-full p-4 border border-slate-300 rounded-2xl"></div>
-      <div><label>Customer Name <span class="text-red-500">*</span></label><input id="name" type="text" class="w-full p-4 border border-slate-300 rounded-2xl"></div>
-      <div><label>Customer Phone (91) <span class="text-red-500">*</span></label><input id="phone" type="text" placeholder="91790XXXXXXX" class="w-full p-4 border border-slate-300 rounded-2xl"></div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px;">
+      <a href="create.html" class="card blue-card">
+        <i class="fa-solid fa-plus" style="font-size: 65px; color: #2563eb; margin-bottom: 25px;"></i>
+        <h2 style="font-size: 28px; margin: 10px 0;">Create New Job</h2>
+      </a>
       
-      <div><label>Device Type</label>
-        <select id="device" class="w-full p-4 border border-slate-300 rounded-2xl">
-          <option>Laptop</option>
-          <option>Desktop PC</option>
-          <option>Printer</option>
-          <option>Other</option>
-        </select>
-      </div>
-
-      <div>
-        <label class="block mb-3">Accessories</label>
-        <div class="grid grid-cols-2 gap-4">
-          <label><input type="checkbox" id="acc1"> Charger</label>
-          <label><input type="checkbox" id="acc2"> Bag</label>
-          <label><input type="checkbox" id="acc3"> Mouse</label>
-          <label><input type="checkbox" id="acc4"> Keyboard</label>
-        </div>
-        <input id="otherAcc" placeholder="Other accessories" class="mt-4 w-full p-4 border border-slate-300 rounded-2xl">
-      </div>
-
-      <div><label>Complaint / Service Required</label><textarea id="complaint" rows="4" class="w-full p-4 border border-slate-300 rounded-2xl"></textarea></div>
-      
-      <div>
-        <label>Upload Photo (Optional)</label>
-        <input id="photo" type="file" accept="image/*" class="w-full p-4 border border-slate-300 rounded-2xl">
-      </div>
-
-      <div><label>Estimate Completion Date</label><input id="delivery" type="date" class="w-full p-4 border border-slate-300 rounded-2xl"></div>
-      <div><label>Estimate Amount ₹</label><input id="estimate" type="number" class="w-full p-4 border border-slate-300 rounded-2xl"></div>
-
-      <button onclick="submitJob()" class="w-full bg-green-600 hover:bg-green-700 text-white py-5 rounded-3xl font-semibold text-xl">
-        Create Job & Send WhatsApp
-      </button>
+      <a href="manage.html" class="card">
+        <i class="fa-solid fa-list-check" style="font-size: 65px; color: #475569; margin-bottom: 25px;"></i>
+        <h2 style="font-size: 28px; margin: 10px 0;">Manage Jobs</h2>
+      </a>
     </div>
   </div>
-
-  <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwyY9bU8pf8PwjrHXk34a0X4QtNNb5q34bSRz7P6MBX1En2bniMwA5S7nx6WT7UchnzyA/exec";
-
-    async function submitJob() {
-      const name = document.getElementById('name').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-
-      if (!name || !phone) {
-        alert("Customer Name and Phone Number are required!");
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append("orderDate", document.getElementById('date').value);
-      formData.append("customerName", name);
-      formData.append("phone", phone);
-      formData.append("deviceType", document.getElementById('device').value);
-
-      let acc = [];
-      if (document.getElementById('acc1').checked) acc.push("Charger");
-      if (document.getElementById('acc2').checked) acc.push("Bag");
-      if (document.getElementById('acc3').checked) acc.push("Mouse");
-      if (document.getElementById('acc4').checked) acc.push("Keyboard");
-      if (document.getElementById('otherAcc').value.trim()) acc.push(document.getElementById('otherAcc').value.trim());
-      formData.append("accessories", acc.join(", "));
-
-      formData.append("complaint", document.getElementById('complaint').value);
-      formData.append("estimateCompletion", document.getElementById('delivery').value);
-      formData.append("estimateAmount", document.getElementById('estimate').value || 0);
-
-      const photoFile = document.getElementById('photo').files[0];
-      if (photoFile) formData.append("photo", photoFile);
-
-      try {
-        const response = await fetch(SCRIPT_URL, {
-          method: 'POST',
-          body: formData
-        });
-
-        const orderID = await response.text();
-        
-        alert(`✅ Job Created Successfully!\nOrder ID: ${orderID}`);
-
-        const msg = `Hello ${name},\nYour job has been registered.\nOrder ID: ${orderID}\nStatus: Order Taken`;
-        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, "_blank");
-
-      } catch (err) {
-        console.error(err);
-        alert("Job submitted. Check Google Sheet.");
-      }
-    }
-  </script>
 </body>
 </html>
