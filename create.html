@@ -6,7 +6,7 @@
   <title>Create New Job - Sree Sastha Computers</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    body { font-family: 'Segoe UI', sans-serif; background: #f8fafc; margin: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8fafc; margin: 0; }
     .container { max-width: 700px; margin: 40px auto; padding: 20px; }
     .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
     label { display: block; margin: 15px 0 5px; font-weight: 600; color: #334155; }
@@ -40,7 +40,11 @@
       <input id="otherAcc" placeholder="Other accessories" style="margin-top:10px;">
 
       <label>Complaint</label><textarea id="complaint" rows="4"></textarea>
-      <label>Upload Photo (Optional)</label><input id="photo" type="file" accept="image/*">
+      
+      <!-- Image Upload -->
+      <label>Upload Photo (Optional)</label>
+      <input id="photo" type="file" accept="image/*">
+
       <label>Estimate Completion Date</label><input id="delivery" type="date">
       <label>Estimate Amount ₹</label><input id="estimate" type="number">
 
@@ -90,8 +94,7 @@
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, "_blank");
 
       } catch (err) {
-        console.error(err);
-        alert("Job submitted. Check Google Sheet for data.");
+        alert("Job submitted. Check Google Sheet.");
       }
     }
   </script>
