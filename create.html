@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create New Job</title>
+  <title>Create New Job - Sree Sastha Computers</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     body { font-family: 'Segoe UI', sans-serif; background: #f8fafc; margin: 0; }
@@ -40,7 +40,6 @@
       <input id="otherAcc" placeholder="Other accessories" style="margin-top:10px;">
 
       <label>Complaint</label><textarea id="complaint" rows="4"></textarea>
-      <label>Upload Photo</label><input id="photo" type="file" accept="image/*">
       <label>Estimate Completion Date</label><input id="delivery" type="date">
       <label>Estimate Amount ₹</label><input id="estimate" type="number">
 
@@ -54,7 +53,8 @@
     async function submitJob() {
       const name = document.getElementById('name').value.trim();
       const phone = document.getElementById('phone').value.trim();
-      if (!name || !phone) return alert("Name and Phone required!");
+
+      if (!name || !phone) return alert("Customer Name and Phone are required!");
 
       const formData = new FormData();
       formData.append("orderDate", document.getElementById('date').value);
@@ -73,16 +73,20 @@
       if (document.getElementById('otherAcc').value.trim()) acc.push(document.getElementById('otherAcc').value.trim());
       formData.append("accessories", acc.join(", "));
 
-      const photo = document.getElementById('photo').files[0];
-      if (photo) formData.append("photo", photo);
-
       try {
-        const response = await fetch(SCRIPT_URL, { method: 'POST', body: formData });
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: formData
+        });
+
         const orderID = await response.text();
-        alert(`Job Created!\nOrder ID: ${orderID}`);
-        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(`Hello ${name}, Job ${orderID} registered.`)}`, "_blank");
+        alert(`✅ Job Created Successfully!\nOrder ID: ${orderID}`);
+
+        const msg = `Hello ${name},\nYour job has been registered.\nOrder ID: ${orderID}`;
+        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, "_blank");
+
       } catch (err) {
-        alert("Error: " + err.message);
+        alert("Job submitted. Check Google Sheet.");
       }
     }
   </script>
