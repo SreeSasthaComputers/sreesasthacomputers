@@ -40,6 +40,7 @@
       <input id="otherAcc" placeholder="Other accessories" style="margin-top:10px;">
 
       <label>Complaint</label><textarea id="complaint" rows="4"></textarea>
+      <label>Upload Photo (Optional)</label><input id="photo" type="file" accept="image/*">
       <label>Estimate Completion Date</label><input id="delivery" type="date">
       <label>Estimate Amount ₹</label><input id="estimate" type="number">
 
@@ -73,6 +74,9 @@
       if (document.getElementById('otherAcc').value.trim()) acc.push(document.getElementById('otherAcc').value.trim());
       formData.append("accessories", acc.join(", "));
 
+      const photoFile = document.getElementById('photo').files[0];
+      if (photoFile) formData.append("photo", photoFile);
+
       try {
         const response = await fetch(SCRIPT_URL, {
           method: 'POST',
@@ -86,7 +90,8 @@
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, "_blank");
 
       } catch (err) {
-        alert("Job submitted. Check Google Sheet.");
+        console.error(err);
+        alert("Job submitted. Check Google Sheet for data.");
       }
     }
   </script>
